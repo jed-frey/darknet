@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 
-for OPENCV in 0 1
+for OPENCV in 1 0
 do
-
-for OPENMP in 0 1
+	export OPENCV=${OPENCV}
+for OPENMP in 1 0
 do
+	export OPENMP=${OPENMP}
 
 for GCC_VER in 4.8 5 6 7 8
 do
