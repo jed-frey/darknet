@@ -14,19 +14,19 @@ ARCH= -gencode arch=compute_30,code=sm_30 \
 # ARCH= -gencode arch=compute_52,code=compute_52
 
 VPATH=./src/:./examples
-SLIB=libdarknet.so
-ALIB=libdarknet.a
-EXEC=darknet
+SLIB?=libdarknet.so
+ALIB?=libdarknet.a
+EXEC?=darknet
 OBJDIR=./obj/
 
-CC=gcc
-NVCC=nvcc
-AR=ar
+CC?=gcc
+NVCC?=nvcc
+AR?=ar
 ARFLAGS=rcs
-OPTS=-Ofast
-LDFLAGS= -lm -pthread
-COMMON= -Iinclude/ -Isrc/
-CFLAGS=-Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC
+OPTS+=-Ofast
+LDFLAGS+= -lm -pthread
+COMMON+= -Iinclude/ -Isrc/
+CFLAGS+=-Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC
 
 ifeq ($(OPENMP), 1)
 CFLAGS+= -fopenmp
