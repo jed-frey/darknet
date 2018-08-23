@@ -18,7 +18,7 @@ do
 	make -j8
 done # endfor GCC_VER
 
-for CLANG_VER in 3.8 3.9 4.0 5.0 6.0 7
+for CLANG_VER in 3.9 4.0 5.0 6.0 7
 do
 	export CC=clang-${CLANG_VER}
 	export EXEC=darknet-${CC}-${OPENCV}-${OPENMP}
