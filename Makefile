@@ -4,36 +4,31 @@ OPENCV?=0
 OPENMP?=0
 DEBUG?=0
 
-ARCH= -gencode arch=compute_30,code=sm_30 \
-      -gencode arch=compute_35,code=sm_35 \
-      -gencode arch=compute_50,code=[sm_50,compute_50] \
-      -gencode arch=compute_52,code=[sm_52,compute_52]
-#      -gencode arch=compute_20,code=[sm_20,sm_21] \ This one is deprecated?
+# CUDA architectures
+ARCH:=-gencode=arch=compute_75,code=[sm_75,compute_75]
+ARCH+=-gencode=arch=compute_61,code=[sm_61,compute_61]
+ARCH+=-gencode=arch=compute_52,code=[sm_52,compute_52]
+ARCH+=-gencode=arch=compute_50,code=[sm_50,compute_50]
 
-# This is what I use, uncomment if you know your arch and want to specify
-# ARCH= -gencode arch=compute_52,code=compute_52
-
+# Ta
 VPATH=./src/:./examples
 SLIB?=libdarknet.so
 ALIB?=libdarknet.a
 EXEC?=darknet
 OBJDIR=./obj/
 
-<<<<<<< HEAD
+# Compiler
 CC?=gcc
+CPP?=g++
 NVCC?=nvcc
 AR?=ar
-=======
-CC=gcc
-CPP=g++
-NVCC=nvcc 
-AR=ar
->>>>>>> upstream/master
+
+# Compiler Flags
 ARFLAGS=rcs
-OPTS+=-Ofast #-mtune=skylake
+OPTS+=-Ofast -mtune=skylake
 LDFLAGS+= -lm -pthread
 COMMON+= -Iinclude/ -Isrc/
-CFLAGS+=-Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC
+CFLAGS+= -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC
 
 ifeq ($(OPENMP), 1)
 CFLAGS+= -fopenmp
@@ -48,13 +43,8 @@ CFLAGS+=$(OPTS)
 ifeq ($(OPENCV), 1)
 COMMON+= -DOPENCV
 CFLAGS+= -DOPENCV
-<<<<<<< HEAD
 LDFLAGS+= `pkg-config --libs opencv`
 COMMON+= `pkg-config --cflags opencv`
-=======
-LDFLAGS+= `pkg-config --libs opencv` -lstdc++
-COMMON+= `pkg-config --cflags opencv` 
->>>>>>> upstream/master
 endif
 
 ifeq ($(GPU), 1)
