@@ -23,7 +23,7 @@ CC?=gcc
 NVCC?=nvcc
 AR?=ar
 ARFLAGS=rcs
-OPTS+=-Ofast
+OPTS+=-Ofast #-mtune=skylake
 LDFLAGS+= -lm -pthread
 COMMON+= -Iinclude/ -Isrc/
 CFLAGS+=-Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC
@@ -95,7 +95,5 @@ results:
 	mkdir -p results
 
 .PHONY: clean
-
 clean:
 	rm -rf $(OBJS) $(SLIB) $(ALIB) $(EXEC) $(EXECOBJ) $(OBJDIR)/*
-

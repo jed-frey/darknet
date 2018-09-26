@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
+for GPU in 0
+do
+	export GPU=${GPU}
 
-for OPENCV in 1 0
+for OPENCV in 0
 do
 	export OPENCV=${OPENCV}
-for OPENMP in 1 0
+for OPENMP in 0
 do
 	export OPENMP=${OPENMP}
 
@@ -31,3 +34,5 @@ done # endfor CLANG_VER
 done # endfor OPENMP
 
 done # endfor OPENCV
+
+done # endfor GPU
