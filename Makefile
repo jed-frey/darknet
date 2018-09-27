@@ -5,16 +5,21 @@ OPENMP?=0
 DEBUG?=0
 
 # CUDA architectures
-ARCH:=-gencode=arch=compute_75,code=[sm_75,compute_75]
-ARCH+=-gencode=arch=compute_61,code=[sm_61,compute_61]
-ARCH+=-gencode=arch=compute_52,code=[sm_52,compute_52]
-ARCH+=-gencode=arch=compute_50,code=[sm_50,compute_50]
+# https://github.com/tpruvot/ccminer/wiki/Compatibility
+
+#ARCH:=-gencode=arch=compute_75,code=[sm_75,compute_75]
+#ARCH:=-gencode=arch=compute_70,code=[sm_70,compute_70]
+#ARCH:=-gencode=arch=compute_61,code=[sm_61,compute_61]
+#ARCH:=-gencode=arch=compute_60,code=[sm_60,compute_60]
+ARCH?=-gencode=arch=compute_52,code=[sm_52,compute_52]
+#ARCH:=-gencode=arch=compute_50,code=[sm_50,compute_50]
 
 # Ta
 VPATH=./src/:./examples
-SLIB?=libdarknet.so
-ALIB?=libdarknet.a
 EXEC?=darknet
+LIB_BASE?=lib${EXEC}
+SLIB?=${LIB_BASE}net.so
+ALIB?=${LIB_BASE}libdarknet.a
 OBJDIR=./obj/
 
 # Compiler
@@ -71,8 +76,6 @@ OBJS = $(addprefix $(OBJDIR), $(OBJ))
 DEPS = $(wildcard src/*.h) Makefile include/darknet.h
 
 all: obj backup results $(SLIB) $(ALIB) $(EXEC)
-#all: obj  results $(SLIB) $(ALIB) $(EXEC)
-
 
 $(EXEC): $(EXECOBJ) $(ALIB)
 	$(CC) $(COMMON) $(CFLAGS) $^ -o $@ $(LDFLAGS) $(ALIB)
