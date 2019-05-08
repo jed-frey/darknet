@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-for GPU in 0
+for GPU in 0 1
 do
 	export GPU=${GPU}
 
-for OPENCV in 0
+for OPENCV in 0 1
 do
 	export OPENCV=${OPENCV}
-for OPENMP in 0
+for OPENMP in 0 1
 do
 	export OPENMP=${OPENMP}
 
@@ -18,10 +18,10 @@ do
 	export SLIB=libdarknet-${CC}-${OPENCV}-${OPENMP}.so
 	export ALIB=libdarknet-${CC}-${OPENCV}-${OPENMP}.a
 	make clean
-	make -j8
+	make -j34
 done # endfor GCC_VER
 
-for CLANG_VER in 3.9 4.0 5.0 6.0 7
+for CLANG_VER in 3.9 4.0 5.0 6.0 7 8 9
 do
 	export CC=clang-${CLANG_VER}
 	export EXEC=darknet-${CC}-${OPENCV}-${OPENMP}
