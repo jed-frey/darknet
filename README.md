@@ -10,7 +10,8 @@ For questions or issues please use the [Google Group](https://groups.google.com/
 ## Weights
 
     cd weights
-    make all
+    make ipfs
+    ./getall.sh
 
 Download weights over [```ipget```](https://dist.ipfs.io/#ipget)
     
