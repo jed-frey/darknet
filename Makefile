@@ -8,11 +8,11 @@ DEBUG?=0
 # https://github.com/tpruvot/ccminer/wiki/Compatibility
 
 ARCH:=-gencode=arch=compute_75,code=[sm_75,compute_75]
-#ARCH:=-gencode=arch=compute_70,code=[sm_70,compute_70]
-#ARCH:=-gencode=arch=compute_61,code=[sm_61,compute_61]
-#ARCH:=-gencode=arch=compute_60,code=[sm_60,compute_60]
+ARCH:=-gencode=arch=compute_70,code=[sm_70,compute_70]
+ARCH:=-gencode=arch=compute_61,code=[sm_61,compute_61]
+ARCH:=-gencode=arch=compute_60,code=[sm_60,compute_60]
 ARCH+=-gencode=arch=compute_52,code=[sm_52,compute_52]
-#ARCH:=-gencode=arch=compute_50,code=[sm_50,compute_50]
+ARCH:=-gencode=arch=compute_50,code=[sm_50,compute_50]
 
 # Ta
 VPATH=./src/:./examples
@@ -48,8 +48,8 @@ CFLAGS+=$(OPTS)
 ifeq ($(OPENCV), 1)
 COMMON+= -DOPENCV
 CFLAGS+= -DOPENCV
-LDFLAGS+= `pkg-config --libs opencv`
-COMMON+= `pkg-config --cflags opencv`
+LDFLAGS+= `pkg-config --libs opencv_apps`
+COMMON+= `pkg-config --cflags opencv_apps`
 endif
 
 ifeq ($(GPU), 1)
