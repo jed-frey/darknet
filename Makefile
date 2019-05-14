@@ -1,6 +1,6 @@
-GPU?=1
+GPU?=0
 CUDNN?=${GPU} # Assume if CUDA is installed so is CUDNN.
-OPENCV?=0
+OPENCV?=1
 OPENMP?=0
 DEBUG?=0
 
@@ -8,18 +8,18 @@ DEBUG?=0
 # https://github.com/tpruvot/ccminer/wiki/Compatibility
 
 ARCH:=-gencode=arch=compute_75,code=[sm_75,compute_75]
-ARCH:=-gencode=arch=compute_70,code=[sm_70,compute_70]
-ARCH:=-gencode=arch=compute_61,code=[sm_61,compute_61]
-ARCH:=-gencode=arch=compute_60,code=[sm_60,compute_60]
+ARCH+=-gencode=arch=compute_70,code=[sm_70,compute_70]
+ARCH+=-gencode=arch=compute_61,code=[sm_61,compute_61]
+ARCH+=-gencode=arch=compute_60,code=[sm_60,compute_60]
 ARCH+=-gencode=arch=compute_52,code=[sm_52,compute_52]
-ARCH:=-gencode=arch=compute_50,code=[sm_50,compute_50]
+ARCH+=-gencode=arch=compute_50,code=[sm_50,compute_50]
 
 # Ta
 VPATH=./src/:./examples
 EXEC?=darknet
 LIB_BASE?=lib${EXEC}
-SLIB?=${LIB_BASE}net.so
-ALIB?=${LIB_BASE}libdarknet.a
+SLIB?=${LIB_BASE}.so
+ALIB?=${LIB_BASE}.a
 OBJDIR=./obj/
 
 # Compiler
@@ -40,16 +40,16 @@ CFLAGS+= -fopenmp
 endif
 
 ifeq ($(DEBUG), 1)
-OPTS=-O0 -g
+OPTS=-Og -g
 endif
 
 CFLAGS+=$(OPTS)
 
 ifeq ($(OPENCV), 1)
-COMMON+= -DOPENCV
-CFLAGS+= -DOPENCV
-LDFLAGS+= `pkg-config --libs opencv_apps`
-COMMON+= `pkg-config --cflags opencv_apps`
+COMMON+= -DOPENCV=1
+CFLAGS+= -DOPENCV=1
+LDFLAGS+= `pkg-config --libs opencv4`
+COMMON+= `pkg-config --cflags opencv4`
 endif
 
 ifeq ($(GPU), 1)
