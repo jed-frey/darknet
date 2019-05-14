@@ -10,10 +10,10 @@ For questions or issues please use the [Google Group](https://groups.google.com/
 ## Weights
 
     cd weights
-    make ipfs
+    make ipget
     ./getall.sh
 
-Download weights over [```ipget```](https://dist.ipfs.io/#ipget)
+Individually over [```ipget```](https://dist.ipfs.io/#ipget)
     
     ipget --output alexnet.weights QmRKUhK3ZiqDwuuZvX5VfatfJcDSwoS25AHJUVygtMGAJw
     ipget --output cifar.weights QmV6NJ3rzM34M2hrTcibxtYC7yJgJeDW9Tt9TaqnFS8jME
